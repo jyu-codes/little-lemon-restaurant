@@ -1,0 +1,152 @@
+/* =========================
+   ABOUT SECTION
+========================= */
+
+.about {
+  background-color: var(--white);
+  width: 100%;
+  padding: 4rem;
+}
+
+.about-container {
+  max-width: 1050px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+}
+
+.about h2 {
+    font-size: 3rem;
+}
+
+.about h3 {
+    font-size: 2rem;
+    font-weight: normal;
+}
+
+.about p {
+    max-width: 450px;
+    font-weight: 600;
+    margin: 1rem 0 2rem 0;
+}
+
+.about-images {
+    flex: 1;
+    position: relative;
+    width: 420px; 
+    height: 420px;
+  }
+
+  .about-images img {
+    position: absolute;
+    
+    object-fit: cover;
+  }
+
+  .about-images img:first-of-type {
+    width: 268px;
+    height: 336px;
+    bottom: 0;
+    left: 0;
+    z-index: 2;
+  }
+
+  .about-images img:last-of-type {
+    width: 350px;
+    height: 336px;
+    top: 0;
+    right: 0;
+    z-index: 1;
+  }
+/* Responsive adjustments */
+
+@media (max-width: 900px) {
+  .about {
+    padding: 3rem 1.5rem;
+  }
+  .about-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 0 1rem;
+  }
+  .about p {
+    max-width: 100%;
+    text-align: center;
+    margin: 0.75rem 0 1.5rem;
+  }
+  .about-images {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+  .about-images img {
+    position: relative;
+    object-fit: cover;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  }
+  .about-images img:first-of-type {
+    width: 45%;
+    height: auto;
+    margin-right: -10%;
+    z-index: 2;
+  }
+  .about-images img:last-of-type {
+    width: 55%;
+    height: auto;
+    margin-left: -10%;
+    z-index: 1;
+  }
+}
+
+@media (max-width: 420px) {
+  .about {
+    padding: 2rem 1rem;
+  }
+  .about h2 {
+    font-size: 2.25rem;
+    text-align: center;
+  }
+  .about h3 {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+  .about p {
+    font-weight: 500;
+    margin: 0.5rem 0 1rem;
+    padding: 0 0.5rem;
+  }
+  .about-images {
+    width: 280px;
+    height: auto;
+    display: block;
+  }
+  .about-images img:first-of-type,
+  .about-images img:last-of-type {
+    position: static;
+    width: 100%;
+    height: auto;
+    margin: 0.5rem 0;
+  }
+}
+
+/* smallest mobile */
+@media (max-width: 360px) {
+  .about {
+    padding: 1.5rem 0.75rem;
+  }
+  .about h2 {
+    font-size: 1.9rem;
+  }
+  .about h3 {
+    font-size: 1.25rem;
+  }
+  .about-images {
+    width: 220px;
+  }
+}
