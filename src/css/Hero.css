@@ -106,8 +106,9 @@
   }
 
   .hero img {
-    width: min(100%, 320px);
-    height: auto;
+    width: 100%;
+    margin-bottom: 20px;
+    max-width: 260px;
   }
 }
 
@@ -139,7 +140,8 @@
   }
 
   .hero img {
-    width: 100%;
+    width: 60%;
+    margin-bottom: 20px;
     max-width: 260px;
   }
 }
