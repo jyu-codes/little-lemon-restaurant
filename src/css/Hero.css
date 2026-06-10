@@ -4,7 +4,8 @@
 
 .hero {
   width: 100%;
-  background-color: #495e57;
+  background-color: var(--primary-green);
+  min-height: 550px;
 }
 
 .hero-container {

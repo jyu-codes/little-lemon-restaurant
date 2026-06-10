@@ -1,0 +1,134 @@
+/* =========================
+   BOOKING SECTION
+========================= */
+
+.booking-page {
+  min-height: 100vh;
+  background: var(--primary-green);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 2rem;
+}
+
+/* OUTER CONTAINER */
+form {
+  width: 100%;
+  max-width: 720px;
+
+  background: white;
+
+  border: 2px solid var(--dark);
+  border-radius: 16px;
+
+  padding: 2.5rem;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 1.5rem;
+}
+
+/* TITLE */
+form h1 {
+  margin: 0 0 1rem;
+
+  font-size: 2rem;
+  font-weight: 700;
+
+  color: #0f172a;
+}
+
+/* LABELS */
+label {
+  font-size: 1rem;
+  font-weight: 600;
+
+  color: #0f172a;
+
+  margin-bottom: -1rem;
+}
+
+/* INPUTS + SELECTS */
+input[type="date"],
+input[type="number"],
+select {
+  width: 100%;
+  height: 80px;
+
+  padding: 0 1.25rem;
+
+  border: 2px solid #cdd4dd;
+  border-radius: 12px;
+
+  background: #f1f2f4;
+
+  font-size: 1.1rem;
+
+  color: #0f172a;
+
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+
+  transition: 0.2s;
+}
+
+/* FOCUS */
+input:focus,
+select:focus {
+  outline: none;
+  border-color: #495e57;
+}
+
+/* SELECT */
+select {
+  appearance: none;
+
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='none' stroke='%234b5563' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+
+  padding-right: 3rem;
+}
+
+/* SUBMIT BUTTON */
+button[type="submit"] {
+  margin-top: 1rem;
+  height: 64px;
+  border: none;
+  border-radius: 12px;
+  background: #f4ce14;
+  color: black;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s ease;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+}
+
+button[type="submit"]:hover {
+  transform: translateY(-2px);
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .booking-page {
+    padding: 1rem;
+  }
+
+  form {
+    padding: 1.5rem;
+  }
+
+  form h1 {
+    font-size: 1.75rem;
+  }
+
+  input[type="date"],
+  input[type="number"],
+  select {
+    height: 68px;
+  }
+}

@@ -1,16 +1,18 @@
 /* =========================
    TESTIMONIALS SECTION
 ========================= */
+
 .testimonials {
   background: var(--secondary-orange);
   width: 100%;
-  height: 590px;
+  min-height: 590px;
+  padding: 5rem 0;
 }
 
 .testimonials-container {
   max-width: 1000px;
   margin: 0 auto;
-  padding-top: 7rem;
+  padding: 0 1rem;
 }
 
 .testimonials h2 {
@@ -19,31 +21,39 @@
   font-size: 3rem;
   font-weight: 700;
   letter-spacing: 0.4px;
-  margin: 0 0 5rem;
+  margin-bottom: 5rem;
 }
 
-/* ========== Grid ========== */
+/* =========================
+   GRID
+========================= */
+
 .testimonial-cards {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: clamp(0.9rem, 2.2vw, 1.5rem);
 }
 
-/* ========== Card ========== */
+/* =========================
+   CARD
+========================= */
+
 .testimonial-cards article {
   background:
     linear-gradient(#fff, #fff) padding-box,
     radial-gradient(120% 120% at 0% 0%, #ffffff88, #ffffff00) border-box;
+
   border: 1px solid #ffffff;
   border-radius: var(--radius);
   box-shadow: var(--shadow);
-  padding: 1.1rem 1.1rem 1.2rem;
+  padding: 1.1rem;
+  position: relative;
+  overflow: hidden;
+
   transition:
     transform 160ms ease,
     box-shadow 160ms ease,
     border-color 160ms ease;
-  position: relative;
-  overflow: clip;
 }
 
 .testimonial-cards article::before {
@@ -54,12 +64,12 @@
   width: 56px;
   height: 56px;
   border-radius: 10px;
+
   background:
-    linear-gradient(135deg, transparent 47%, #a56d54 0 53%, transparent 0) 0
-      0/100% 100%,
-    linear-gradient(225deg, transparent 47%, #a56d54 0 53%, transparent 0) 0
-      0/100% 100%,
+    linear-gradient(135deg, transparent 47%, #a56d54 0 53%, transparent 0),
+    linear-gradient(225deg, transparent 47%, #a56d54 0 53%, transparent 0),
     var(--accent);
+
   opacity: 0.25;
 }
 
@@ -71,13 +81,17 @@
   outline: 3px solid var(--ring);
   outline-offset: 2px;
 }
-/* ========== Card Content ========== */
+
+/* =========================
+   CARD CONTENT
+========================= */
+
 .testimonial-cards article h3 {
-  margin: 0 0 0.4rem 0;
+  margin: 0 0 0.4rem;
   font-size: 0.95rem;
+  font-weight: 700;
   letter-spacing: 0.3px;
   color: var(--muted);
-  font-weight: 700;
 }
 
 .testimonial-cards article .card-rating {
@@ -87,69 +101,79 @@
 }
 
 .testimonial-cards article .card-name {
-  margin: 0 0 0.6rem;
+  margin-bottom: 0.6rem;
   font-weight: 700;
   color: var(--ink);
 }
 
 .testimonial-cards article .card-comment {
-  margin: 0 0 0.6rem;
   color: #666;
+  line-height: 1.5;
 }
 
-/* Responsive adjustments */
+/* =========================
+   TABLET
+========================= */
 
 @media (max-width: 1100px) {
-  .testimonials-container {
-    padding-top: 5rem;
-  }
   .testimonial-cards {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: clamp(0.8rem, 2.2vw, 1.25rem);
-    margin-left: 30px;
-    margin-right: 30px;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .testimonials h2 {
+    margin-bottom: 3rem;
   }
 }
+
+/* =========================
+   MOBILE
+========================= */
 
 @media (max-width: 700px) {
   .testimonials {
-    height: auto;
-    padding: 3rem 0 2rem;
+    min-height: auto;
+    padding: 4rem 0;
   }
-  .testimonials-container {
-    padding-top: 3.5rem;
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
+
   .testimonial-cards {
     grid-template-columns: 1fr;
     gap: 1rem;
   }
+
   .testimonials h2 {
     font-size: 2rem;
-    margin: 0 0 2rem;
+    margin-bottom: 2rem;
   }
 }
 
+/* =========================
+   SMALL MOBILE
+========================= */
+
 @media (max-width: 420px) {
-  .testimonials-container {
-    padding-top: 2.25rem;
+  .testimonials {
+    padding: 3rem 0;
   }
+
+  .testimonials-container {
+    padding: 0 0.75rem;
+  }
+
   .testimonials h2 {
     font-size: 1.75rem;
-    margin-bottom: 1.25rem;
+    margin-bottom: 1.5rem;
   }
+
   .testimonial-cards article {
     padding: 0.9rem;
   }
 }
 
 @media (max-width: 360px) {
-  .testimonials-container {
-    padding-top: 1.5rem;
-    padding-left: 0.75rem;
-    padding-right: 0.75rem;
+  .testimonials {
+    padding: 2.5rem 0;
   }
+
   .testimonials h2 {
     font-size: 1.5rem;
     margin-bottom: 1rem;
