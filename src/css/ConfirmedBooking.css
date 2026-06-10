@@ -1,0 +1,35 @@
+/* =========================
+   CONFIRMATION PAGE
+========================= */
+
+.confirmation-page {
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  text-align: center;
+  background: white;
+  padding: 3rem;
+
+  background-color: var(--primary-green);
+}
+
+.confirmation-page h1 {
+  font-size: 2.8rem;
+  color: var(--primary-yellow);
+  margin-bottom: 1rem;
+
+  font-weight: 800;
+  letter-spacing: 0.5px;
+
+  text-shadow: 0 3px 4px rgba(0, 0, 0, 0.15);
+
+  line-height: 1.2;
+}
+
+.confirmation-page p {
+  font-size: 1.1rem;
+  color: var(--white);
+}

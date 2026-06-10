@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const BookingForm = ({ availableTimes, dispatch, onSubmit }) => {
+const BookingForm = ({ availableTimes, dispatch, onSubmit, bookings }) => {
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [guests, setGuests] = useState("");
@@ -20,6 +20,11 @@ const BookingForm = ({ availableTimes, dispatch, onSubmit }) => {
       guests,
       occasion,
     });
+
+    setDate("");
+    setTime("");
+    setGuests("");
+    setOccasion("");
   };
 
   return (
@@ -49,11 +54,17 @@ const BookingForm = ({ availableTimes, dispatch, onSubmit }) => {
         onChange={(e) => setTime(e.target.value)}
       >
         <option value="">Select time</option>
-        {availableTimes?.map((t) => (
-          <option key={t} value={t}>
-            {t}
-          </option>
-        ))}
+        {availableTimes
+          ?.filter((time) => {
+            return !bookings?.some(
+              (b) => b.date === date && b.time === time
+            );
+          })
+          .map((t) => (
+            <option key={t} value={t}>
+              {t}
+            </option>
+          ))}
       </select>
 
       {/* GUESTS */}
@@ -64,8 +75,8 @@ const BookingForm = ({ availableTimes, dispatch, onSubmit }) => {
         min="1"
         max="10"
         value={guests}
-        onChange={(e) => setGuests(e.target.value)}
         placeholder="Select number of guests"
+        onChange={(e) => setGuests(e.target.value)}
       />
 
       {/* OCCASION */}
@@ -80,7 +91,6 @@ const BookingForm = ({ availableTimes, dispatch, onSubmit }) => {
         <option value="Anniversary">Anniversary</option>
       </select>
 
-      {/* SUBMIT */}
       <button type="submit">Confirm Reservation</button>
     </form>
   );

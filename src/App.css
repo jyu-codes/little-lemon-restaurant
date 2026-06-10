@@ -145,6 +145,7 @@ section {
 @media (max-width: 420px) {
   header {
     padding: 0.5rem 0.75rem;
+    flex-direction: column;
   }
   header img {
     height: 38px;

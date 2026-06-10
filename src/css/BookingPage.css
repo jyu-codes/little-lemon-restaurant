@@ -2,6 +2,14 @@
    BOOKING SECTION
 ========================= */
 
+.bookings-container {
+  width: 100%;
+  max-width: 720px;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
 .booking-page {
   min-height: 100vh;
   background: var(--primary-green);
@@ -110,6 +118,37 @@ button[type="submit"] {
 
 button[type="submit"]:hover {
   transform: translateY(-2px);
+}
+
+/* TABLES */
+.booking-table-wrapper {
+  background: white;
+  border: 2px solid var(--dark);
+  border-radius: 16px;
+  padding: 1.5rem;
+}
+
+.booking-title {
+  margin: 0 0 1rem;
+  font-size: 1.5rem;
+  color: #0f172a;
+}
+
+.booking-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.booking-table th,
+.booking-table td {
+  border: 1px solid #cdd4dd;
+  padding: 12px;
+  text-align: left;
+}
+
+.booking-table th {
+  background: #f1f2f4;
+  font-weight: 700;
 }
 
 /* MOBILE */
