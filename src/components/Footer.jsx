@@ -1,5 +1,6 @@
 import footer_logo from "../assets/logo_footer.png";
 import "../css/Footer.css";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   
@@ -12,12 +13,8 @@ const Footer = () => {
           <h3>Navigation</h3>
 
           <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#menu">Menu</a></li>
-            <li><a href="#reservation">Reservations</a></li>
-            <li><a href="#order">Order Online</a></li>
-            <li><a href="#login">Login</a></li>
+            <li><Link to="/">Home</Link></li>
+            <li><Link to="/reservations">Reservations</Link></li>
           </ul>
         </section>
 
