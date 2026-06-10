@@ -31,13 +31,17 @@
 
 /* ========== Card ========== */
 .testimonial-cards article {
-  background: linear-gradient(#fff, #fff) padding-box,
-              radial-gradient(120% 120% at 0% 0%, #ffffff88, #ffffff00) border-box;
+  background:
+    linear-gradient(#fff, #fff) padding-box,
+    radial-gradient(120% 120% at 0% 0%, #ffffff88, #ffffff00) border-box;
   border: 1px solid #ffffff;
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   padding: 1.1rem 1.1rem 1.2rem;
-  transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease,
+    border-color 160ms ease;
   position: relative;
   overflow: clip;
 }
@@ -51,8 +55,10 @@
   height: 56px;
   border-radius: 10px;
   background:
-    linear-gradient(135deg, transparent 47%, #a56d54 0 53%, transparent 0) 0 0/100% 100%,
-    linear-gradient(225deg, transparent 47%, #a56d54 0 53%, transparent 0) 0 0/100% 100%,
+    linear-gradient(135deg, transparent 47%, #a56d54 0 53%, transparent 0) 0
+      0/100% 100%,
+    linear-gradient(225deg, transparent 47%, #a56d54 0 53%, transparent 0) 0
+      0/100% 100%,
     var(--accent);
   opacity: 0.25;
 }
