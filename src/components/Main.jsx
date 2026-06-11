@@ -8,7 +8,6 @@ import { initializeTimes, updateTimes } from "../reducers/bookingReducer";
 import { submitAPI } from "../api";
 
 const Main = () => {
-
   const [availableTimes, dispatch] = useReducer(
     updateTimes,
     [],
@@ -21,14 +20,18 @@ const Main = () => {
     const success = submitAPI(formData);
 
     if (success) {
-      navigate("/confirmed");
+      // Navigate to /confirmed and pass booking data
+      navigate("/confirmed", { state: formData });
     }
   };
 
   return (
     <main>
       <Routes>
+        {/* Home */}
         <Route path="/" element={<HomePage />} />
+
+        {/* Booking page */}
         <Route
           path="/reservations"
           element={
@@ -39,6 +42,8 @@ const Main = () => {
             />
           }
         />
+
+        {/* Booking confirmation page */}
         <Route path="/confirmed" element={<ConfirmedBooking />} />
       </Routes>
     </main>

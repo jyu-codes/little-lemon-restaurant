@@ -1,5 +1,6 @@
 import BookingForm from "./BookingForm";
 import { useState, useEffect } from "react";
+import { FaTrashAlt } from "react-icons/fa";
 
 const Bookings = ({ availableTimes, dispatch, submitForm }) => {
    const [bookings, setBookings] = useState(() => {
@@ -16,6 +17,11 @@ const Bookings = ({ availableTimes, dispatch, submitForm }) => {
     submitForm(formData);
   };
 
+  const handleReset = () => {
+    setBookings([]);
+    localStorage.removeItem("bookings");
+  };
+
   return (
     <div className="bookings-container">
       <BookingForm
@@ -26,8 +32,21 @@ const Bookings = ({ availableTimes, dispatch, submitForm }) => {
       />
 
       <div className="booking-table-wrapper">
-        <h2 className="booking-title">Booking Data</h2>
-
+        <div className="booking-table-header">
+          <h2 className="booking-title">Booking Data</h2>
+          {bookings.length > 0 && (
+            <FaTrashAlt
+              style={{
+                cursor: "pointer",
+                fontSize: "1.2rem",
+                color: "var(--secondary-orange)",
+                marginTop: "-1rem",
+              }}
+              title="Reset Bookings"
+              onClick={handleReset}
+            />
+          )}
+        </div>
         <table className="booking-table">
           <thead>
             <tr>
@@ -48,6 +67,7 @@ const Bookings = ({ availableTimes, dispatch, submitForm }) => {
               </tr>
             ))}
           </tbody>
+
         </table>
       </div>
     </div>

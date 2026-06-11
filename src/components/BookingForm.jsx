@@ -5,19 +5,44 @@ const BookingForm = ({ availableTimes, dispatch, onSubmit, bookings }) => {
   const [time, setTime] = useState("");
   const [guests, setGuests] = useState("");
   const [occasion, setOccasion] = useState("");
+  const [error, setError] = useState("");
+
+  const isFormValid =
+    date &&
+    time &&
+    occasion &&
+    guests &&
+    Number(guests) >= 1 &&
+    Number(guests) <= 10;
+
+  
+  const handleGuestsChange = (e) => {
+    const value = e.target.value;
+    setGuests(value);
+
+    if (value === "") {
+      setError("");
+      return;
+    }
+
+    const num = Number(value);
+
+    if (num < 1) {
+      setError("Minimum number of guests is 1");
+    } else if (num > 10) {
+      setError("Maximum number of guests is 10");
+    } else {
+      setError("");
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!date || !time || !guests || !occasion) {
-      alert("Please fill all fields");
-      return;
-    }
-
     onSubmit({
       date,
       time,
-      guests,
+      guests: Number(guests),
       occasion,
     });
 
@@ -26,6 +51,8 @@ const BookingForm = ({ availableTimes, dispatch, onSubmit, bookings }) => {
     setGuests("");
     setOccasion("");
   };
+
+  const today = new Date().toISOString().split("T")[0];
 
   return (
     <form onSubmit={handleSubmit}>
@@ -36,6 +63,7 @@ const BookingForm = ({ availableTimes, dispatch, onSubmit, bookings }) => {
       <input
         type="date"
         id="res-date"
+        min={today}
         value={date}
         onChange={(e) => {
           setDate(e.target.value);
@@ -47,25 +75,26 @@ const BookingForm = ({ availableTimes, dispatch, onSubmit, bookings }) => {
       />
 
       {/* TIME */}
-      <label htmlFor="res-time">Choose time</label>
-      <select
-        id="res-time"
-        value={time}
-        onChange={(e) => setTime(e.target.value)}
-      >
-        <option value="">Select time</option>
-        {availableTimes
-          ?.filter((time) => {
-            return !bookings?.some(
-              (b) => b.date === date && b.time === time
-            );
-          })
-          .map((t) => (
-            <option key={t} value={t}>
-              {t}
-            </option>
-          ))}
-      </select>
+      {date && (
+        <>
+          <label>Choose time</label>
+
+          <div className="time-picker">
+            {availableTimes
+              ?.filter((t) => !bookings?.some((b) => b.date === date && b.time === t))
+              .map((t) => (
+                <button
+                  key={t}
+                  type="button"
+                  className={`time-slot ${time === t ? "selected" : ""}`}
+                  onClick={() => setTime(t)}
+                >
+                  {t}
+                </button>
+              ))}
+          </div>
+        </>
+      )}
 
       {/* GUESTS */}
       <label htmlFor="guests">Number of guests</label>
@@ -76,8 +105,9 @@ const BookingForm = ({ availableTimes, dispatch, onSubmit, bookings }) => {
         max="10"
         value={guests}
         placeholder="Select number of guests"
-        onChange={(e) => setGuests(e.target.value)}
+        onChange={handleGuestsChange}
       />
+      {error && <p style={{ color: "red", fontSize: "0.9rem" }}>{error}</p>}
 
       {/* OCCASION */}
       <label htmlFor="occasion">Occasion</label>
@@ -89,9 +119,17 @@ const BookingForm = ({ availableTimes, dispatch, onSubmit, bookings }) => {
         <option value="">Occasion</option>
         <option value="Birthday">Birthday</option>
         <option value="Anniversary">Anniversary</option>
+        <option value="Date Night">Date Night</option>
+        <option value="Engagement">Engagement</option>
+        <option value="Graduation">Graduation</option>
+        <option value="Business Dinner">Business Dinner</option>
+        <option value="Family Gathering">Family Gathering</option>
+        <option value="Other">Other</option>
       </select>
 
-      <button type="submit">Confirm Reservation</button>
+      <button type="submit" disabled={!isFormValid}>
+        Confirm Reservation
+      </button>
     </form>
   );
 };

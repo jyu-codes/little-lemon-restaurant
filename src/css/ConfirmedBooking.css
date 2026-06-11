@@ -10,8 +10,7 @@
   align-items: center;
 
   text-align: center;
-  background: white;
-  padding: 3rem;
+  padding: 3rem 1.5rem;
 
   background-color: var(--primary-green);
 }
@@ -20,16 +19,77 @@
   font-size: 2.8rem;
   color: var(--primary-yellow);
   margin-bottom: 1rem;
-
   font-weight: 800;
-  letter-spacing: 0.5px;
-
-  text-shadow: 0 3px 4px rgba(0, 0, 0, 0.15);
-
   line-height: 1.2;
+  text-shadow: 0 3px 4px rgba(0, 0, 0, 0.15);
 }
 
-.confirmation-page p {
+.confirmation-page > p {
   font-size: 1.1rem;
   color: var(--white);
+  margin-bottom: 1rem;
+}
+
+/* Reservation Card */
+.reservation-details {
+  width: 100%;
+  max-width: 500px;
+
+  background: var(--white);
+  border-radius: 16px;
+
+  padding: 2rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+
+  text-align: left;
+}
+
+.reservation-details h2 {
+  text-align: center;
+  color: var(--primary-green);
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+}
+
+/* Detail Items */
+.reservation-details p {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 0.9rem 0;
+  margin: 0;
+
+  border-bottom: 1px solid #eaeaea;
+
+  font-size: 1rem;
+  color: #333;
+}
+
+.reservation-details p:last-child {
+  border-bottom: none;
+}
+
+.reservation-details strong {
+  color: #555;
+  font-weight: 600;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .confirmation-page h1 {
+    font-size: 2rem;
+  }
+
+  .reservation-details {
+    padding: 1.5rem;
+  }
+
+  .reservation-details p {
+    align-items: flex-start;
+    gap: 0.3rem;
+  }
 }
