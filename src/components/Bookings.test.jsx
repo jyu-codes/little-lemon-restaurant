@@ -55,3 +55,61 @@ test("renders booking data", () => {
   expect(row).toHaveTextContent("2");
   expect(row).toHaveTextContent("Birthday");
 });
+
+test("shows reset icon only when bookings exist", () => {
+  useBooking.mockReturnValue({
+    bookings: [
+      {
+        date: "2026-06-10",
+        time: "17:00",
+        guests: 2,
+        occasion: "Birthday",
+      },
+    ],
+    resetBookings: vi.fn(),
+  });
+
+  render(<Bookings />);
+
+  const icon = screen.getByTitle(/reset bookings/i);
+
+  expect(icon).toBeInTheDocument();
+});
+
+test("does not show reset icon when no bookings exist", () => {
+  useBooking.mockReturnValue({
+    bookings: [],
+    resetBookings: vi.fn(),
+  });
+
+  render(<Bookings />);
+
+  expect(screen.queryByTitle(/reset bookings/i)).not.toBeInTheDocument();
+});
+
+import userEvent from "@testing-library/user-event";
+
+test("calls resetBookings when trash icon is clicked", async () => {
+  const user = userEvent.setup();
+  const resetMock = vi.fn();
+
+  useBooking.mockReturnValue({
+    bookings: [
+      {
+        date: "2026-06-10",
+        time: "17:00",
+        guests: 2,
+        occasion: "Birthday",
+      },
+    ],
+    resetBookings: resetMock,
+  });
+
+  render(<Bookings />);
+
+  const icon = screen.getByTitle(/reset bookings/i);
+
+  await user.click(icon);
+
+  expect(resetMock).toHaveBeenCalledTimes(1);
+});
