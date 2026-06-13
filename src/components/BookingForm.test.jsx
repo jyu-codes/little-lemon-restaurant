@@ -1,64 +1,98 @@
-import { render, screen, cleanup } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { describe, test, expect, vi, afterEach } from "vitest";
+import { test, expect, vi, beforeEach } from "vitest";
 import BookingForm from "./BookingForm";
+import { useBooking } from "../context/BookingContext";
+import { fetchAPI } from "../api";
 
-describe("BookingForm", () => {
-  test("renders the BookingForm heading", () => {
-    render(
-      <BookingForm
-        availableTimes={["17:00"]}
-        dispatch={() => {}}
-        onSubmit={() => {}}
-      />
-    );
+vi.mock("../context/BookingContext", () => ({
+  useBooking: vi.fn(),
+}));
 
-    expect(screen.getByText(/book now/i)).toBeInTheDocument();
+beforeEach(() => {
+  vi.clearAllMocks();
+});
+
+const mockContext = (submitForm = vi.fn()) => {
+  useBooking.mockReturnValue({
+    availableTimes: ["10:00", "12:00", "14:00", "18:00"],
+    dispatch: vi.fn(),
+    submitForm,
+    bookings: [],
   });
+};
 
-  test("submits correct data", async () => {
-    const user = userEvent.setup();
-    const handleSubmit = vi.fn();
+test("renders the BookingForm heading", () => {
+  mockContext();
 
-    render(
-      <BookingForm
-        availableTimes={["17:00", "18:00"]}
-        dispatch={() => {}}
-        onSubmit={handleSubmit}
-      />
-    );
+  render(<BookingForm />);
 
-    await user.type(
-      screen.getByLabelText(/choose date/i),
-      "2026-06-10"
-    );
+  expect(screen.getByText(/book now/i)).toBeInTheDocument();
+});
 
-    await user.selectOptions(
-      screen.getByLabelText(/choose time/i),
-      "17:00"
-    );
+test("submits correct data", async () => {
+  const user = userEvent.setup();
+  const handleSubmit = vi.fn();
 
-    await user.type(
-      screen.getByLabelText(/number of guests/i),
-      "2"
-    );
+  mockContext(handleSubmit);
 
-    await user.selectOptions(
-      screen.getByLabelText(/occasion/i),
-      "Birthday"
-    );
+  render(<BookingForm />);
 
-    await user.click(
-      screen.getByText(/confirm reservation/i)
-    );
+  const futureDate = "2099-06-10";
 
-    expect(handleSubmit).toHaveBeenCalledTimes(1);
+  await user.clear(screen.getByLabelText(/choose date/i));
+  await user.type(screen.getByLabelText(/choose date/i), futureDate);
 
-    expect(handleSubmit).toHaveBeenCalledWith({
-      date: "2026-06-10",
-      time: "17:00",
-      guests: "2",
-      occasion: "Birthday",
-    });
+  const timeButton = await screen.findByText("18:00");
+  await user.click(timeButton);
+
+  await user.type(
+    screen.getByLabelText(/number of guests/i),
+    "2"
+  );
+
+  await user.selectOptions(
+    screen.getByLabelText(/occasion/i),
+    "Birthday"
+  );
+
+  await user.click(
+    screen.getByRole("button", { name: /confirm reservation/i })
+  );
+
+  expect(handleSubmit).toHaveBeenCalledTimes(1);
+
+  expect(handleSubmit).toHaveBeenCalledWith({
+    date: futureDate,
+    time: "18:00",
+    guests: 2,
+    occasion: "Birthday",
   });
+});
+
+test("does not show past times for today", async () => {
+  const user = userEvent.setup();
+
+  mockContext();
+
+  render(<BookingForm />);
+
+  const today = new Date().toISOString().split("T")[0];
+
+  await user.type(
+    screen.getByLabelText(/choose date/i),
+    today
+  );
+
+  const nowHour = new Date().getHours();
+
+  const allTimes = ["10:00", "12:00", "14:00", "18:00"];
+
+  for (const time of allTimes) {
+    const hour = Number(time.split(":")[0]);
+
+    if (hour < nowHour) {
+      expect(screen.queryByText(time)).not.toBeInTheDocument();
+    }
+  }
 });

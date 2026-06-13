@@ -1,6 +1,9 @@
 import { useState } from "react";
+import { useBooking } from "../context/BookingContext";
 
-const BookingForm = ({ availableTimes, dispatch, onSubmit, bookings }) => {
+const BookingForm = () => {
+  const { availableTimes, dispatch, submitForm, bookings } = useBooking();
+
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [guests, setGuests] = useState("");
@@ -15,7 +18,6 @@ const BookingForm = ({ availableTimes, dispatch, onSubmit, bookings }) => {
     Number(guests) >= 1 &&
     Number(guests) <= 10;
 
-  
   const handleGuestsChange = (e) => {
     const value = e.target.value;
     setGuests(value);
@@ -39,20 +41,36 @@ const BookingForm = ({ availableTimes, dispatch, onSubmit, bookings }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    onSubmit({
+    const formData = {
       date,
       time,
       guests: Number(guests),
       occasion,
-    });
+    };
+
+    submitForm(formData);
 
     setDate("");
     setTime("");
     setGuests("");
     setOccasion("");
+    setError("");
   };
 
-  const today = new Date().toISOString().split("T")[0];
+  const now = new Date();
+  const selectedDate = new Date(date);
+  const todayStr = now.toISOString().split("T")[0];
+
+  const isPastTime = (time) => {
+    if (date !== todayStr) return false;
+
+    const [hours, minutes] = time.split(":").map(Number);
+
+    const slotTime = new Date();
+    slotTime.setHours(hours, minutes, 0, 0);
+
+    return slotTime < now;
+  };
 
   return (
     <form onSubmit={handleSubmit}>
@@ -63,10 +81,11 @@ const BookingForm = ({ availableTimes, dispatch, onSubmit, bookings }) => {
       <input
         type="date"
         id="res-date"
-        min={today}
+        min={todayStr}
         value={date}
         onChange={(e) => {
           setDate(e.target.value);
+
           dispatch({
             type: "UPDATE_TIMES",
             date: e.target.value,
@@ -81,12 +100,20 @@ const BookingForm = ({ availableTimes, dispatch, onSubmit, bookings }) => {
 
           <div className="time-picker">
             {availableTimes
-              ?.filter((t) => !bookings?.some((b) => b.date === date && b.time === t))
+              ?.filter(
+                (t) =>
+                  !bookings.some(
+                    (b) => b.date === date && b.time === t
+                  )
+              )
+              .filter((t) => !isPastTime(t))
               .map((t) => (
                 <button
                   key={t}
                   type="button"
-                  className={`time-slot ${time === t ? "selected" : ""}`}
+                  className={`time-slot ${
+                    time === t ? "selected" : ""
+                  }`}
                   onClick={() => setTime(t)}
                 >
                   {t}
@@ -104,10 +131,14 @@ const BookingForm = ({ availableTimes, dispatch, onSubmit, bookings }) => {
         min="1"
         max="10"
         value={guests}
-        placeholder="Select number of guests"
         onChange={handleGuestsChange}
       />
-      {error && <p style={{ color: "red", fontSize: "0.9rem" }}>{error}</p>}
+
+      {error && (
+        <p style={{ color: "red", fontSize: "0.9rem" }}>
+          {error}
+        </p>
+      )}
 
       {/* OCCASION */}
       <label htmlFor="occasion">Occasion</label>

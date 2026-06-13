@@ -1,39 +1,18 @@
+import { useBooking } from "../context/BookingContext";
 import BookingForm from "./BookingForm";
-import { useState, useEffect } from "react";
 import { FaTrashAlt } from "react-icons/fa";
 
-const Bookings = ({ availableTimes, dispatch, submitForm }) => {
-   const [bookings, setBookings] = useState(() => {
-    const saved = localStorage.getItem("bookings");
-    return saved ? JSON.parse(saved) : [];
-  });
-
-  useEffect(() => {
-    localStorage.setItem("bookings", JSON.stringify(bookings));
-  }, [bookings]);
-
-  const handleSubmit = (formData) => {
-    setBookings((prev) => [...prev, formData]);
-    submitForm(formData);
-  };
-
-  const handleReset = () => {
-    setBookings([]);
-    localStorage.removeItem("bookings");
-  };
+const Bookings = () => {
+  const { bookings, resetBookings } = useBooking();
 
   return (
     <div className="bookings-container">
-      <BookingForm
-        availableTimes={availableTimes}
-        dispatch={dispatch}
-        onSubmit={handleSubmit}
-        bookings={bookings}
-      />
+      <BookingForm />
 
       <div className="booking-table-wrapper">
         <div className="booking-table-header">
           <h2 className="booking-title">Booking Data</h2>
+
           {bookings.length > 0 && (
             <FaTrashAlt
               style={{
@@ -43,10 +22,11 @@ const Bookings = ({ availableTimes, dispatch, submitForm }) => {
                 marginTop: "-1rem",
               }}
               title="Reset Bookings"
-              onClick={handleReset}
+              onClick={resetBookings}
             />
           )}
         </div>
+
         <table className="booking-table">
           <thead>
             <tr>
@@ -58,16 +38,21 @@ const Bookings = ({ availableTimes, dispatch, submitForm }) => {
           </thead>
 
           <tbody>
-            {bookings.map((item, index) => (
-              <tr key={index}>
-                <td>{item.date}</td>
-                <td>{item.time}</td>
-                <td>{item.guests}</td>
-                <td>{item.occasion}</td>
+            {bookings.length > 0 ? (
+              bookings.map((booking, index) => (
+                <tr key={index}>
+                  <td>{booking.date}</td>
+                  <td>{booking.time}</td>
+                  <td>{booking.guests}</td>
+                  <td>{booking.occasion}</td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="4">No bookings yet.</td>
               </tr>
-            ))}
+            )}
           </tbody>
-
         </table>
       </div>
     </div>

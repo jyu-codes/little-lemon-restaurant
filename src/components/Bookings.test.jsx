@@ -1,41 +1,57 @@
-import { render, screen } from "@testing-library/react";
+import { render, within, screen } from "@testing-library/react";
 import { vi, test, expect, beforeEach } from "vitest";
 import Bookings from "./Bookings";
+import { useBooking } from "../context/BookingContext";
+
+vi.mock("../context/BookingContext", () => ({
+  useBooking: vi.fn(),
+}));
 
 beforeEach(() => {
   localStorage.clear();
+  vi.clearAllMocks();
 });
 
-test("writes booking data to localStorage", () => {
-  const setItemSpy = vi.spyOn(Storage.prototype, "setItem");
+const mockContext = (overrides = {}) => {
+  useBooking.mockReturnValue({
+    bookings: [],
+    resetBookings: vi.fn(),
+    ...overrides,
+  });
+};
 
-  render(<Bookings availableTimes={[]} dispatch={() => {}} submitForm={() => {}} />);
+test("renders empty bookings state", () => {
+  mockContext({
+    bookings: [],
+  });
 
-  const mockBooking = {
-    date: "2026-06-10",
-    time: "17:00",
-    guests: 2,
-    occasion: "Birthday",
-  };
+  render(<Bookings />);
 
-  expect(setItemSpy).toHaveBeenCalled();
+  expect(screen.getByText(/no bookings yet/i)).toBeInTheDocument();
 });
 
-test("reads booking data from localStorage on load", () => {
-  const mockData = [
-    {
-      date: "2026-06-10",
-      time: "17:00",
-      guests: 2,
-      occasion: "Birthday",
-    },
-  ];
+test("renders booking data", () => {
+  useBooking.mockReturnValue({
+    bookings: [
+      {
+        date: "2026-06-10",
+        time: "17:00",
+        guests: 2,
+        occasion: "Birthday",
+      },
+    ],
+    resetBookings: vi.fn(),
+  });
 
-  localStorage.setItem("bookings", JSON.stringify(mockData));
+  const { container } = render(<Bookings />);
 
-  const getItemSpy = vi.spyOn(Storage.prototype, "getItem");
+  const bookingsContainer = container.querySelector(".bookings-container");
 
-  render(<Bookings availableTimes={[]} dispatch={() => {}} submitForm={() => {}} />);
+  const utils = within(bookingsContainer);
 
-  expect(getItemSpy).toHaveBeenCalledWith("bookings");
+  const row = utils.getByText("2026-06-10").closest("tr");
+
+  expect(row).toHaveTextContent("17:00");
+  expect(row).toHaveTextContent("2");
+  expect(row).toHaveTextContent("Birthday");
 });
