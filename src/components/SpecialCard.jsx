@@ -1,10 +1,10 @@
 import { FaMotorcycle } from "react-icons/fa";
 
-const SpecialCard = ({ title, price, description, image, alt }) => {
+const SpecialCard = ({ title, price, description, image }) => {
   return (
     <article className="card">
       
-      <img src={image} alt={alt} />
+      <img src={image} alt={title} loading="lazy"/>
 
       <div className="card-content">
         
@@ -18,7 +18,7 @@ const SpecialCard = ({ title, price, description, image, alt }) => {
         </p>
 
         <div className="card-footer">
-          <button className="delivery-btn">
+          <button className="delivery-btn" disabled>
             <span>Order a delivery</span>
             <FaMotorcycle className="deliver-icon" aria-hidden="true" />
         </button>

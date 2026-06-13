@@ -1,7 +1,10 @@
 import heroImage from "../assets/restaurantfood.jpg"
 import "../css/Hero.css";
+import { useNavigate } from "react-router-dom";
 
 const Hero = () => {
+    const navigate = useNavigate();
+
     return (
         <section className="hero">
             <div className="hero-container">
@@ -15,7 +18,12 @@ const Hero = () => {
                     modern twist.
                 </p>
 
-                <button>Reserve a Table</button>
+                <button
+                    type="button"
+                    onClick={() => navigate("/reservations")}
+                >
+                    Reserve a Table
+                </button>
                 </article>
 
                 <img src={heroImage} alt="Restaurant food" />

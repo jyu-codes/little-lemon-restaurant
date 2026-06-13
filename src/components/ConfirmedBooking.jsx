@@ -21,6 +21,9 @@ const ConfirmedBooking = () => {
           <h2>Reservation Details</h2>
 
           <p>
+            <strong>Name:</strong> {lastBooking.name}
+          </p>
+          <p>
             <strong>Date:</strong> {lastBooking.date}
           </p>
           <p>

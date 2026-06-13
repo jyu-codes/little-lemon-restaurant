@@ -1,55 +1,84 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useBooking } from "../context/BookingContext";
 
 const BookingForm = () => {
   const { availableTimes, dispatch, submitForm, bookings } = useBooking();
 
+  const [name, setName] = useState("");
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [guests, setGuests] = useState("");
   const [occasion, setOccasion] = useState("");
   const [error, setError] = useState("");
 
-  const isFormValid =
-    date &&
-    time &&
-    occasion &&
-    guests &&
-    Number(guests) >= 1 &&
-    Number(guests) <= 10;
+  const todayStr = new Date().toISOString().split("T")[0];
+
+  const Required = () => <span className="required">*</span>;
+
+  /* =========================
+     GUEST VALIDATION
+  ========================= */
 
   const handleGuestsChange = (e) => {
     const value = e.target.value;
     setGuests(value);
+
+    const num = Number(value);
 
     if (value === "") {
       setError("");
       return;
     }
 
-    const num = Number(value);
-
-    if (num < 1) {
-      setError("Minimum number of guests is 1");
-    } else if (num > 10) {
-      setError("Maximum number of guests is 10");
-    } else {
-      setError("");
-    }
+    if (num < 1) setError("Minimum 1 guest");
+    else if (num > 10) setError("Maximum 10 guests");
+    else setError("");
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  /* =========================
+     TIME FILTERING
+  ========================= */
 
-    const formData = {
-      date,
-      time,
-      guests: Number(guests),
-      occasion,
-    };
+  const isPastTime = (t) => {
+    if (date !== todayStr) return false;
 
-    submitForm(formData);
+    const now = new Date();
+    const [h, m] = t.split(":").map(Number);
 
+    const slot = new Date();
+    slot.setHours(h, m, 0, 0);
+
+    return slot < now;
+  };
+
+  const filteredTimes = useMemo(() => {
+    if (!date) return [];
+
+    return availableTimes
+      .filter(
+        (t) => !bookings.some((b) => b.date === date && b.time === t)
+      )
+      .filter((t) => !isPastTime(t));
+  }, [availableTimes, bookings, date]);
+
+  /* =========================
+     FORM VALIDATION (light)
+  ========================= */
+
+  const isFormValid =
+    name.trim().length > 1 &&
+    date &&
+    time &&
+    guests &&
+    Number(guests) >= 1 &&
+    Number(guests) <= 10;
+
+  /* =========================
+     ACTIONS
+  ========================= */
+
+  const resetForm = () => {
+    setName("");
     setDate("");
     setTime("");
     setGuests("");
@@ -57,27 +86,53 @@ const BookingForm = () => {
     setError("");
   };
 
-  const now = new Date();
-  const selectedDate = new Date(date);
-  const todayStr = now.toISOString().split("T")[0];
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-  const isPastTime = (time) => {
-    if (date !== todayStr) return false;
+    if (!isFormValid) return;
 
-    const [hours, minutes] = time.split(":").map(Number);
+    submitForm({
+      name,
+      date,
+      time,
+      guests: Number(guests),
+      occasion: occasion || "Not specified",
+    });
 
-    const slotTime = new Date();
-    slotTime.setHours(hours, minutes, 0, 0);
-
-    return slotTime < now;
+    resetForm();
   };
+
+  /* =========================
+     UI FLOW RULES
+  ========================= */
+
+  const showTime = !!date;
+  const showDetails = !!time;
+
+  /* =========================
+     UI
+  ========================= */
 
   return (
     <form onSubmit={handleSubmit}>
       <h1>Book Now</h1>
 
+      {/* NAME */}
+      <label htmlFor="res-name">
+        Enter your name <Required />
+      </label>
+      <input
+        id="res-name"
+        type="text"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        placeholder="Name"
+      />
+
       {/* DATE */}
-      <label htmlFor="res-date">Choose date</label>
+      <label htmlFor="res-date">
+        Choose date <Required />
+      </label>
       <input
         type="date"
         id="res-date"
@@ -85,7 +140,7 @@ const BookingForm = () => {
         value={date}
         onChange={(e) => {
           setDate(e.target.value);
-
+          setTime("");
           dispatch({
             type: "UPDATE_TIMES",
             date: e.target.value,
@@ -93,74 +148,79 @@ const BookingForm = () => {
         }}
       />
 
-      {/* TIME */}
-      {date && (
+      {/* TIME (only after date) */}
+      {showTime && (
         <>
-          <label>Choose time</label>
+          <label>
+            Choose time <Required />
+          </label>
 
           <div className="time-picker">
-            {availableTimes
-              ?.filter(
-                (t) =>
-                  !bookings.some(
-                    (b) => b.date === date && b.time === t
-                  )
-              )
-              .filter((t) => !isPastTime(t))
-              .map((t) => (
-                <button
-                  key={t}
-                  type="button"
-                  className={`time-slot ${
-                    time === t ? "selected" : ""
-                  }`}
-                  onClick={() => setTime(t)}
-                >
-                  {t}
-                </button>
-              ))}
+            {filteredTimes.map((t) => (
+              <button
+                key={t}
+                type="button"
+                className={`time-slot ${
+                  time === t ? "selected" : ""
+                }`}
+                aria-pressed={time === t}
+                onClick={() => setTime(t)}
+              >
+                {t}
+              </button>
+            ))}
           </div>
         </>
       )}
 
-      {/* GUESTS */}
-      <label htmlFor="guests">Number of guests</label>
-      <input
-        type="number"
-        id="guests"
-        min="1"
-        max="10"
-        value={guests}
-        onChange={handleGuestsChange}
-      />
+      {/* DETAILS (only after time) */}
+      {showDetails && (
+        <>
+          <label htmlFor="guests">
+            Number of guests <Required />
+          </label>
+          <input
+            id="guests"
+            type="number"
+            min="1"
+            max="10"
+            value={guests}
+            onChange={handleGuestsChange}
+          />
 
-      {error && (
-        <p style={{ color: "red", fontSize: "0.9rem" }}>
-          {error}
-        </p>
+          {error && (
+            <p role="alert" className="error-text">
+              {error}
+            </p>
+          )}
+
+          <label htmlFor="occasion">
+            Occasion (optional)
+          </label>
+          <select
+            id="occasion"
+            value={occasion}
+            onChange={(e) => setOccasion(e.target.value)}
+          >
+            <option value="">Select occasion</option>
+            <option value="Birthday">Birthday</option>
+            <option value="Anniversary">Anniversary</option>
+            <option value="Date Night">Date Night</option>
+            <option value="Other">Other</option>
+          </select>
+        </>
       )}
 
-      {/* OCCASION */}
-      <label htmlFor="occasion">Occasion</label>
-      <select
-        id="occasion"
-        value={occasion}
-        onChange={(e) => setOccasion(e.target.value)}
-      >
-        <option value="">Occasion</option>
-        <option value="Birthday">Birthday</option>
-        <option value="Anniversary">Anniversary</option>
-        <option value="Date Night">Date Night</option>
-        <option value="Engagement">Engagement</option>
-        <option value="Graduation">Graduation</option>
-        <option value="Business Dinner">Business Dinner</option>
-        <option value="Family Gathering">Family Gathering</option>
-        <option value="Other">Other</option>
-      </select>
+      {/* BUTTONS (always visible) */}
+      <div className="formButtons">
+        <button type="button" className="clear-btn" onClick={resetForm}>
+          Clear Progress
+        </button>
 
-      <button type="submit" disabled={!isFormValid}>
-        Confirm Reservation
-      </button>
+        <button type="submit" disabled={!isFormValid}>
+          Confirm Reservation
+        </button>
+      </div>
     </form>
   );
 };

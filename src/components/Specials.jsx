@@ -14,7 +14,6 @@ const Specials = () => {
             description:
             "The famous Greek salad of crispy lettuce, peppers, olives and our Chicagp style feta cheese, garnished with crunchy garlic, and rosemary croutons.",
             image: greeksalad,
-            alt: "Greek Salad",
         },
         {
             id: 2,
@@ -22,7 +21,6 @@ const Specials = () => {
             price: "$5.99",
             description: "Our Bruschetta is made from grilled bread that has been smeared with garlic and seasoned with salt and olive oil.",
             image: bruschetta,
-            alt: "Bruschetta",
         },
         {
             id: 3,
@@ -30,7 +28,6 @@ const Specials = () => {
             price: "$5.00",
             description: "This comes straight from grandma's recipe book, every last ingredient has been sourced and is as authentic as can be imagined.",
             image: lemondessert,
-            alt: "Lemon Dessert",
         },
     ];
 
@@ -39,7 +36,7 @@ const Specials = () => {
         <div className="specials-container">
             <div className="specials-header">
             <h2>This week's specials!</h2>
-            <button>Online Menu</button>
+            <button type="button" disabled>Online Menu</button>
             </div>
 
             <div className="specials-cards">
@@ -50,7 +47,6 @@ const Specials = () => {
                 price={item.price}
                 description={item.description}
                 image={item.image}
-                alt={item.alt}
                 />
             ))}
             </div>

@@ -30,6 +30,7 @@ const Bookings = () => {
         <table className="booking-table">
           <thead>
             <tr>
+              <th>Name</th>
               <th>Date</th>
               <th>Time</th>
               <th>Guests</th>
@@ -41,6 +42,7 @@ const Bookings = () => {
             {bookings.length > 0 ? (
               bookings.map((booking, index) => (
                 <tr key={index}>
+                  <td>{booking.name}</td>
                   <td>{booking.date}</td>
                   <td>{booking.time}</td>
                   <td>{booking.guests}</td>
@@ -49,7 +51,7 @@ const Bookings = () => {
               ))
             ) : (
               <tr>
-                <td colSpan="4">No bookings yet.</td>
+                <td colSpan="5">No bookings yet.</td>
               </tr>
             )}
           </tbody>

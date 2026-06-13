@@ -18,9 +18,9 @@ const Testimonials = () => {
         },
         {
             id: 3,
-            name: "David Cho",
+            name: "David Choo",
             rating: 2,
-            comment: "Food took nearly 45 minutes to arrive and was lukewarm. The waitstaff was polite, but the kitchen was struggling."
+            comment: "Best Turkish Mac n' Cheese in town! A must-try indeed."
         },
         {
             id: 4,
