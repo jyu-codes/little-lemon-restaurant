@@ -36,7 +36,7 @@ const Specials = () => {
         <div className="specials-container">
             <div className="specials-header">
             <h2>This week's specials!</h2>
-            <button type="button" disabled>Online Menu</button>
+            <button type="button" aria-disabled="true" onClick={(e) => e.preventDefault()} title="Coming soon">Online Menu</button>
             </div>
 
             <div className="specials-cards">

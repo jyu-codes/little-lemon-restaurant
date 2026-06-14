@@ -217,7 +217,7 @@ const BookingForm = () => {
           Clear
         </button>
 
-        <button type="submit" disabled={!isFormValid}>
+        <button type="submit" disabled={!isFormValid} aria-disabled={!isFormValid}>
           Confirm
         </button>
       </div>

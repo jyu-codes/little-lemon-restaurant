@@ -133,10 +133,50 @@ footer {
   }
 }
 
+@media (max-width: 600px) {
+  /* Mobile: stack vertically but tighten spacing and increase font slightly */
+  .footer-logo-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    padding: 0.75rem;
+  }
+
+  .footer-logo {
+    width: 90px;
+    margin: 0 0 0.25rem 0;
+  }
+
+  .footer-logo-container section,
+  .footer-logo-container address {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .footer-logo-container section ul {
+    display: block;
+    padding-left: 0;
+    margin: 0.25rem 0 0.75rem 0;
+  }
+
+  /* slightly larger, readable typography on mobile */
+  .footer-logo-container h3 {
+    font-size: 1.05rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .footer-logo-container li,
+  .footer-logo-container p,
+  .footer-logo-container a {
+    font-size: 0.95rem;
+    line-height: 1.2;
+    margin-bottom: 0.35rem;
+  }
+}
+
 @media (max-width: 480px) {
   .footer-logo-container {
     padding: 0rem 1.5rem;
-    gap: 1rem;
   }
 
   .footer-logo {
@@ -144,14 +184,14 @@ footer {
   }
 
   .footer-logo-container h3 {
-    font-size: 0.7rem;
+    font-size: 1rem;
     line-height: 1;
   }
 
   .footer-logo-container li,
   .footer-logo-container p,
   .footer-logo-container a {
-    font-size: 0.6rem;
+    font-size: 0.9rem;
     line-height: 1;
   }
 

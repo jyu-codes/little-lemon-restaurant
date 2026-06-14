@@ -18,10 +18,16 @@ const SpecialCard = ({ title, price, description, image }) => {
         </p>
 
         <div className="card-footer">
-          <button className="delivery-btn" disabled>
+          <button
+            className="delivery-btn disabled"
+            aria-disabled="true"
+            onClick={(e) => e.preventDefault()}
+            title="Coming soon"
+          >
             <span>Order a delivery</span>
             <FaMotorcycle className="deliver-icon" aria-hidden="true" />
-        </button>
+            <span className="sr-only">Coming soon</span>
+          </button>
         </div>
 
       </div>

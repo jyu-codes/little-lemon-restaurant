@@ -123,7 +123,7 @@
   }
 
   .hero article h1 {
-    font-size: 3rem;
+    font-size: 2.5rem;
   }
 
   .hero article h2 {
@@ -144,5 +144,17 @@
     width: 60%;
     margin-bottom: 20px;
     max-width: 260px;
+  }
+}
+
+@media (max-width: 360px) {
+  .hero article h1 {
+    font-size: 2rem;
+  }
+  .hero article h2 {
+    font-size: 1.25rem;
+  }
+  .hero article p {
+    font-size: 0.95rem;
   }
 }
