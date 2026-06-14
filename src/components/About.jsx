@@ -22,8 +22,8 @@ const About = () => {
           </article>
 
           <figure className="about-images">
-            <img src={image1} alt="Mario and Adrian A" loading="lazy" />
-            <img src={image2} alt="Mario and Adrian B" loading="lazy" />
+            <img src={image1} alt="Mario and Adrian A" />
+            <img src={image2} alt="Mario and Adrian B" />
             <figcaption>Mario and Adrian, founders of Little Lemon</figcaption>
           </figure>
       </div>

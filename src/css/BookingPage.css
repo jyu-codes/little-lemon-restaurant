@@ -31,17 +31,12 @@
 /* OUTER CONTAINER */
 form {
   width: 100%;
-
   background: white;
-
   border: 2px solid #cdd4dd;
   border-radius: 16px;
-
   padding: 1.5rem;
-
   display: flex;
   flex-direction: column;
-
   gap: 1.5rem;
 }
 
@@ -49,7 +44,6 @@ form {
 form h1 {
   font-size: 3rem;
   font-weight: 700;
-
   color: #0f172a;
 }
 
@@ -57,9 +51,7 @@ form h1 {
 label {
   font-size: 1.2rem;
   font-weight: 600;
-
   color: #0f172a;
-
   margin-bottom: -1rem;
 }
 
@@ -75,20 +67,13 @@ input[type="number"],
 select {
   width: 100%;
   height: 60px;
-
   padding: 0 1.25rem;
-
   border: 2px solid #cdd4dd;
   border-radius: 12px;
-
   background: #f3f3f3;
-
   font-size: 1.1rem;
-
   color: #0f172a;
-
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
-
   transition: 0.2s;
 }
 
@@ -102,12 +87,9 @@ select:focus {
 /* SELECT */
 select {
   appearance: none;
-
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='none' stroke='%234b5563' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
-
   background-repeat: no-repeat;
   background-position: right 1rem center;
-
   padding-right: 3rem;
 }
 
@@ -170,12 +152,9 @@ button[type="submit"]:hover {
 button[type="submit"]:disabled {
   background: #bfc5c9;
   color: #6b7280;
-
   cursor: not-allowed;
-
   box-shadow: none;
   transform: none;
-
   opacity: 0.8;
 }
 
@@ -187,28 +166,20 @@ button[type="submit"]:disabled {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 0.75rem;
-
   padding: 1.25rem;
-
   border: 2px solid #cdd4dd;
   border-radius: 16px;
-
   background: white;
 }
 
 .time-slot {
   height: 56px;
-
   border: 1px solid #d9d9d9;
   border-radius: 10px;
-
   background: white;
-
   font-size: 1rem;
   font-weight: 500;
-
   cursor: pointer;
-
   transition: all 0.2s ease;
 }
 
@@ -257,11 +228,9 @@ button[type="submit"]:disabled {
   font-weight: 700;
 }
 
-.booking-table {
-  font-size: 1rem;
-}
-
-/* MOBILE */
+/* =========================
+   MOBILE
+========================= */
 
 @media (max-width: 768px) {
   .booking-page {
@@ -288,8 +257,8 @@ button[type="submit"]:disabled {
     padding: 0.5rem;
     text-align: left;
   }
+
   .formButtons {
-    flex-direction: column;
     gap: 1rem;
     width: 100%;
   }
@@ -314,7 +283,63 @@ button[type="submit"]:disabled {
   .clear-btn {
     height: 56px;
   }
+
   .booking-table {
     font-size: 0.6rem;
+  }
+}
+
+/* =========================
+   FIX FOR VERY SMALL SCREENS (<480px)
+========================= */
+
+@media (max-width: 480px) {
+  .booking-page {
+    padding: 0.75rem;
+  }
+
+  .booking-table-wrapper {
+    padding: 0.75rem;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .booking-table {
+    min-width: 520px; /* forces scroll instead of squish */
+    font-size: 0.75rem;
+  }
+
+  .booking-table th,
+  .booking-table td {
+    padding: 0.4rem;
+    white-space: nowrap;
+  }
+
+  .booking-title {
+    font-size: 1.2rem;
+  }
+
+  form {
+    padding: 1rem;
+    gap: 1.5rem;
+  }
+
+  label {
+    font-size: 1rem;
+  }
+
+  input[type="text"],
+  input[type="date"],
+  input[type="number"],
+  select {
+    height: 50px;
+    font-size: 0.95rem;
+    padding: 0 0.9rem;
+  }
+
+  button[type="submit"],
+  .clear-btn {
+    height: 50px;
+    font-size: 0.95rem;
   }
 }

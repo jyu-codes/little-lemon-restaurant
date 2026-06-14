@@ -4,7 +4,7 @@ const SpecialCard = ({ title, price, description, image }) => {
   return (
     <article className="card">
       
-      <img src={image} alt={title} loading="lazy"/>
+      <img src={image} alt={title}/>
 
       <div className="card-content">
         

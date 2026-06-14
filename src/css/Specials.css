@@ -223,9 +223,14 @@
    SMALL MOBILE
 ========================= */
 
-@media (max-width: 420px) {
+@media (max-width: 480px) {
   .specials-header h2 {
     font-size: 1.75rem;
+  }
+  .specials-header button {
+    width: 100%;
+    max-width: 250px;
+    height: 52px;
   }
 
   .card-header h3 {
