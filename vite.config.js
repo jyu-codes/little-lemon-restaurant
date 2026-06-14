@@ -4,7 +4,7 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
 
-  base: '/projects/little-lemon-restaurant/',
+  base: '/little-lemon-restaurant/',
 
   test: {
     environment: 'jsdom',

@@ -66,6 +66,14 @@ input[type="date"],
 input[type="number"],
 select {
   width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
+
+input[type="text"],
+input[type="date"],
+input[type="number"],
+select {
   height: 60px;
   padding: 0 1.25rem;
   border: 2px solid #cdd4dd;
@@ -75,6 +83,17 @@ select {
   color: #0f172a;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
   transition: 0.2s;
+}
+
+input[type="date"] {
+  -webkit-appearance: none;
+  appearance: none;
+  display: block;
+}
+
+form,
+label {
+  min-width: 0;
 }
 
 /* FOCUS */
