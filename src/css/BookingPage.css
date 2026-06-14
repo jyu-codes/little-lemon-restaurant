@@ -55,7 +55,7 @@ form h1 {
 
 /* LABELS */
 label {
-  font-size: 1rem;
+  font-size: 1.2rem;
   font-weight: 600;
 
   color: #0f172a;
@@ -234,13 +234,14 @@ button[type="submit"]:disabled {
 
 .booking-title {
   margin: 0 0 1rem;
-  font-size: 1.5rem;
+  font-size: 2rem;
   color: #0f172a;
 }
 
 .booking-table {
   width: 100%;
   border-collapse: collapse;
+  font-size: 1rem;
 }
 
 .booking-table th,
@@ -251,12 +252,13 @@ button[type="submit"]:disabled {
 }
 
 .booking-table th {
+  font-size: 1rem;
   background: #f1f2f4;
   font-weight: 700;
 }
 
 .booking-table {
-  font-size: 0.95rem;
+  font-size: 1rem;
 }
 
 /* MOBILE */

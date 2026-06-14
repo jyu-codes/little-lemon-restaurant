@@ -41,7 +41,7 @@
 
 .hero article p {
   color: var(--white);
-  font-size: 1.1rem;
+  font-size: 1.5rem;
   line-height: 1.5;
   margin-bottom: 2rem;
 }
@@ -51,8 +51,8 @@
 ========================= */
 
 .hero article button {
-  width: 200px;
-  height: 60px;
+  width: 280px;
+  height: 75px;
 
   border: none;
   border-radius: 16px;
@@ -60,7 +60,7 @@
   background-color: var(--primary-yellow);
   color: #333;
 
-  font-size: 1rem;
+  font-size: 1.3rem;
   font-weight: bold;
 
   cursor: pointer;

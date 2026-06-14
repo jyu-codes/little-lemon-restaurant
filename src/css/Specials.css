@@ -35,20 +35,22 @@
 }
 
 .specials-header button {
-  padding: 1rem 2rem;
+  width: 280px;
+  height: 75px;
+
   border: none;
   border-radius: 16px;
+
   background-color: var(--primary-yellow);
   color: #333;
+
+  font-size: 1.3rem;
   font-weight: bold;
+
   cursor: pointer;
 
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-}
-
-.specials-header button:hover {
-  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+  transition: box-shadow 0.3s ease;
 }
 
 .specials-header button:disabled {
