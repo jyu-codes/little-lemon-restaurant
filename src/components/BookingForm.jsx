@@ -214,11 +214,11 @@ const BookingForm = () => {
       {/* BUTTONS (always visible) */}
       <div className="formButtons">
         <button type="button" className="clear-btn" onClick={resetForm}>
-          Clear Progress
+          Clear
         </button>
 
         <button type="submit" disabled={!isFormValid}>
-          Confirm Reservation
+          Confirm
         </button>
       </div>
     </form>

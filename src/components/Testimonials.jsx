@@ -19,7 +19,7 @@ const Testimonials = () => {
         {
             id: 3,
             name: "David Choo",
-            rating: 2,
+            rating: 5,
             comment: "Best Turkish Mac n' Cheese in town! A must-try indeed."
         },
         {

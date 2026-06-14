@@ -112,6 +112,7 @@ select {
 }
 
 .formButtons {
+  width: inherit;
   display: flex;
   gap: 2rem;
   margin: 0 auto;
@@ -226,7 +227,7 @@ button[type="submit"]:disabled {
 /* TABLES */
 .booking-table-wrapper {
   background: white;
-  border: 2px solid var(--dark);
+  border: 2px solid #cdd4dd;
   border-radius: 16px;
   padding: 1.5rem;
 }
@@ -272,5 +273,12 @@ button[type="submit"]:disabled {
   input[type="number"],
   select {
     height: 68px;
+  }
+
+  .booking-table th,
+  .booking-table td {
+    border: 1px solid #cdd4dd;
+    padding: 0.5rem;
+    text-align: left;
   }
 }

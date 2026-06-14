@@ -159,7 +159,7 @@ test("submits correct booking data", async () => {
 
   await user.click(
     screen.getByRole("button", {
-      name: /confirm reservation/i,
+      name: /confirm/i,
     })
   );
 
@@ -187,7 +187,7 @@ test("uses Not specified when occasion is empty", async () => {
 
   await user.click(
     screen.getByRole("button", {
-      name: /confirm reservation/i,
+      name: /confirm/i,
     })
   );
 
@@ -326,7 +326,7 @@ test("clears form after successful submission", async () => {
 
   await user.click(
     screen.getByRole("button", {
-      name: /confirm reservation/i,
+      name: /confirm/i,
     })
   );
 
@@ -358,7 +358,7 @@ test("disables submit when form is incomplete", () => {
 
   expect(
     screen.getByRole("button", {
-      name: /confirm reservation/i,
+      name: /confirm/i,
     })
   ).toBeDisabled();
 });
@@ -374,7 +374,7 @@ test("enables submit when required fields are complete", async () => {
 
   expect(
     screen.getByRole("button", {
-      name: /confirm reservation/i,
+      name: /confirm/i,
     })
   ).toBeEnabled();
 });
@@ -400,7 +400,7 @@ test("renders available times from context", async () => {
    CLEAR PROGRESS
 ========================= */
 
-test("clears all form progress when Clear Progress is clicked", async () => {
+test("clears all form progress when Clear is clicked", async () => {
   const user = userEvent.setup();
 
   mockContext();
@@ -416,7 +416,7 @@ test("clears all form progress when Clear Progress is clicked", async () => {
 
   await user.click(
     screen.getByRole("button", {
-      name: /clear progress/i,
+      name: /clear/i,
     })
   );
 
@@ -438,7 +438,7 @@ test("clears all form progress when Clear Progress is clicked", async () => {
 
   expect(
     screen.getByRole("button", {
-      name: /confirm reservation/i,
+      name: /confirm/i,
     })
   ).toBeDisabled();
 });

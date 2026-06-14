@@ -23,6 +23,7 @@ const Bookings = () => {
               }}
               title="Reset Bookings"
               onClick={resetBookings}
+              aria-label="Reset Bookings"
             />
           )}
         </div>

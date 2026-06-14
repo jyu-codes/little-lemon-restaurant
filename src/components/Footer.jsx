@@ -20,9 +20,13 @@ const Footer = () => {
 
         <section>
           <h3>Contact</h3>
-          <p>Address</p>
-          <p>Phone Number</p>
-          <p>Email</p>
+          <p>
+            123 Citrus Avenue<br />
+            Chicago, IL 60601<br />
+            USA
+          </p>
+          <p>+1 (312) 555-0147</p>
+          <p>hello@littlelemon.com</p>
         </section>
 
         <section>
@@ -34,6 +38,10 @@ const Footer = () => {
             <li><a href="/">X</a></li>
           </ul>
         </section>
+      </div>
+      
+      <div className="footer-bottom">
+        <p>© {new Date().getFullYear()} Little Lemon. All rights reserved.</p>
       </div>
     </footer>
   );
